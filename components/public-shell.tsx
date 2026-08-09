@@ -1,0 +1,13 @@
+import { SiteHeader } from '@/components/site-header';
+import { SiteFooter } from '@/components/site-footer';
+
+export async function PublicShell({ children }: { children: React.ReactNode }) {
+  const footer = await SiteFooter();
+  return (
+    <div className="flex min-h-dvh flex-col">
+      <SiteHeader />
+      <main className="flex-1">{children}</main>
+      {footer}
+    </div>
+  );
+}
