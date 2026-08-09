@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { Building2, Sparkles } from 'lucide-react';
+import { Building2, Sparkles, Phone, ShieldCheck } from 'lucide-react';
 import { createServerClient } from '@/lib/supabase/server';
 import { PublicShell } from '@/components/public-shell';
 import { SearchBar } from '@/components/search-bar';
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: { mode: string } })
   return {
     title: isWholesale ? 'Wholesale Catalogue' : 'Retail Catalogue',
     description: isWholesale
-      ? 'Browse Kamal Agencies wholesale catalogue with company-wise wholesale discounts.'
+      ? 'Browse the Kamal Agencies wholesale product catalogue. Contact us directly for wholesale pricing and discounts.'
       : 'Browse Kamal Agencies retail catalogue with company-wise retail discounts.',
     robots: { index: true, follow: true },
   };
@@ -29,13 +29,13 @@ export default async function CatalogueModePage({ params }: { params: { mode: st
 
   const { data: companiesRaw } = await supabase
     .from('companies')
-    .select('id, name, slug, logo_url, description, retail_discount, wholesale_discount, is_featured, display_order, is_active, created_at, updated_at')
+    .select('id, name, slug, logo_url, description, retail_discount, wholesale_discount, wholesale_active, is_featured, display_order, is_active, created_at, updated_at')
     .eq('is_active', true)
     .order('is_featured', { ascending: false })
     .order('display_order', { ascending: true })
     .order('name', { ascending: true });
 
-  const companies = (companiesRaw ?? []) as unknown as CompanyWithCount[];
+  const companies = ((companiesRaw ?? []).filter((company) => !isWholesale || (company as { wholesale_active?: boolean }).wholesale_active !== false)) as unknown as CompanyWithCount[];
 
   let companiesWithCounts = companies;
   if (companies.length > 0) {
@@ -64,12 +64,35 @@ export default async function CatalogueModePage({ params }: { params: { mode: st
             </h1>
             <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
               {isWholesale
-                ? 'Browse companies and view their wholesale discount. Each company\'s discount applies to all its products.'
+                ? 'Browse wholesale products by company. For applicable wholesale pricing and discounts, please contact Kamal Agencies.'
                 : 'Browse companies and view their retail discount. Each company\'s discount applies to all its products.'}
             </p>
 
             <div className="mt-5 max-w-2xl">
               <SearchBar mode={mode} variant="hero" />
+            </div>
+
+            {isWholesale && (
+              <div className="mt-5 flex max-w-3xl flex-col gap-3 rounded-2xl border border-primary/15 bg-primary/5 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Phone className="h-4 w-4" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">Wholesale pricing &amp; discounts</p>
+                    <p className="mt-0.5 text-xs leading-5 text-muted-foreground">For applicable wholesale discounts and pricing, please contact Kamal Agencies directly.</p>
+                  </div>
+                </div>
+                <a href="tel:6205259004" className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90">
+                  <Phone className="h-4 w-4" />
+                  Contact us
+                </a>
+              </div>
+            )}
+
+            <div className="mt-4 flex items-start gap-2 rounded-xl border border-warning/20 bg-warning/5 px-3.5 py-3 text-xs leading-5 text-muted-foreground">
+              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
+              <p><span className="font-semibold text-foreground">Expiry Policy:</span> Products with expiry of up to 3 months past the expiry date will be accepted. Example: a product expiring in January 2026 will be accepted until March 2026.</p>
             </div>
           </div>
         </div>

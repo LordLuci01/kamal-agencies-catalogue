@@ -63,7 +63,7 @@ export default async function HomePage() {
             Kamal Agencies
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Wholesale Distributor of Pharmaceuticals &amp; Healthcare Products. Browse our companies and see applicable discounts instantly.
+            Wholesale Distributor of Pharmaceuticals &amp; Healthcare Products. Browse 185+ companies, explore products, and find the right catalogue for your requirement.
           </p>
 
           <div className="mx-auto mt-8 max-w-2xl">
@@ -80,14 +80,14 @@ export default async function HomePage() {
             </Link>
             <Link
               href="/catalog/retail"
-              className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 text-sm font-medium text-foreground transition-all hover:bg-accent active:scale-[0.99] sm:w-auto"
+              className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 text-sm font-medium text-foreground transition-all hover:-translate-y-0.5 hover:bg-accent hover:shadow-sm active:scale-[0.99] sm:w-auto"
             >
               Retail Catalogue
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/catalog/wholesale"
-              className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 text-sm font-medium text-foreground transition-all hover:bg-accent active:scale-[0.99] sm:w-auto"
+              className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 text-sm font-medium text-foreground transition-all hover:-translate-y-0.5 hover:bg-accent hover:shadow-sm active:scale-[0.99] sm:w-auto"
             >
               Wholesale Catalogue
               <ArrowRight className="h-4 w-4" />
@@ -155,6 +155,30 @@ export default async function HomePage() {
             <div>
               <h3 className="text-sm font-semibold text-foreground">Easy Contact</h3>
               <p className="mt-1 text-sm text-muted-foreground">Call or WhatsApp us for orders and enquiries.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Policies */}
+      <section className="mx-auto max-w-6xl px-4 pb-2 sm:px-6">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-2xl border border-warning/20 bg-warning/5 p-5">
+            <div className="flex items-start gap-3">
+              <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-warning" />
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Expiry Policy</h3>
+                <p className="mt-1 text-sm leading-6 text-muted-foreground">Products with expiry of up to 3 months past the expiry date will be accepted. Example: January 2026 expiry is accepted through March 2026.</p>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-2xl border border-primary/15 bg-primary/5 p-5">
+            <div className="flex items-start gap-3">
+              <Phone className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Wholesale Pricing</h3>
+                <p className="mt-1 text-sm leading-6 text-muted-foreground">Wholesale discounts are not published publicly. Contact Kamal Agencies for applicable pricing.</p>
+              </div>
             </div>
           </div>
         </div>

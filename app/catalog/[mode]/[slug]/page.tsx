@@ -17,12 +17,13 @@ export async function generateMetadata({ params }: { params: Params }) {
   if (params.mode !== 'retail' && params.mode !== 'wholesale') return { title: 'Catalogue' };
   const mode: CatalogueMode = params.mode;
   const supabase = createServerClient();
-  const { data } = await supabase
+  let companyQuery = supabase
     .from('companies')
     .select('name')
     .eq('slug', params.slug)
-    .eq('is_active', true)
-    .maybeSingle();
+    .eq('is_active', true);
+  if (mode === 'wholesale') companyQuery = companyQuery.eq('wholesale_active', true);
+  const { data } = await companyQuery.maybeSingle();
   if (!data) return { title: 'Company Not Found' };
   const label = mode === 'wholesale' ? 'Wholesale' : 'Retail';
   return {
@@ -42,12 +43,14 @@ export default async function CatalogueCompanyPage({
   const mode: CatalogueMode = params.mode;
   const supabase = createServerClient();
 
-  const { data: companyRaw } = await supabase
+  let companyQuery = supabase
     .from('companies')
-    .select('id, name, slug, logo_url, description, retail_discount, wholesale_discount, is_featured, display_order, is_active, created_at, updated_at')
+    .select('id, name, slug, logo_url, description, retail_discount, wholesale_discount, wholesale_active, is_featured, display_order, is_active, created_at, updated_at')
     .eq('slug', params.slug)
-    .eq('is_active', true)
-    .maybeSingle();
+    .eq('is_active', true);
+  if (mode === 'wholesale') companyQuery = companyQuery.eq('wholesale_active', true);
+  const { data: companyRaw } = await companyQuery.maybeSingle();
+
 
   if (!companyRaw) notFound();
   const company = companyRaw as unknown as Company;
