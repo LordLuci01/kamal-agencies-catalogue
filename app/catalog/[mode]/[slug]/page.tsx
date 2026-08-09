@@ -110,7 +110,7 @@ export default async function CatalogueCompanyPage({
           </div>
           <ProductList
             products={products}
-            initialQuery={query}
+            query={query}
             page={safePage}
             total={total}
             basePath={basePath}
