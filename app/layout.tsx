@@ -7,13 +7,13 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swa
 const lora = Lora({ subsets: ['latin'], variable: '--font-serif', display: 'swap' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://kamalagencies.com'),
+  metadataBase: new URL('https://kagencies.in'),
   title: {
     default: 'Kamal Agencies | Pharmaceuticals & Healthcare Products',
     template: '%s | Kamal Agencies',
   },
   description:
-    'Kamal Agencies — Wholesale Distributor of Pharmaceuticals & Healthcare Products since 1996. Browse companies, products, and applicable discounts.',
+    'Kamal Agencies — Wholesale Distributor of Pharmaceuticals & Healthcare Products since 1996. Browse companies, products, and retail catalogue offers.',
   keywords: [
     'Kamal Agencies',
     'pharmaceutical distributor',
